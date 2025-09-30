@@ -1,19 +1,22 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
+  Post,
+  Put,
+  Delete,
   HttpCode,
   HttpStatus,
   Param,
+  Body,
+  UseGuards,
   ParseIntPipe,
-  Post,
-  Put,
 } from '@nestjs/common';
-import { PostagemService } from '../services/postagem.service';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Postagem } from '../entities/postagem.entity';
+import { PostagemService } from '../services/postagem.service';
 
-@Controller('postagens')
+@UseGuards(JwtAuthGuard)
+@Controller('/postagens')
 export class PostagemController {
   constructor(private readonly postagemService: PostagemService) {}
 
